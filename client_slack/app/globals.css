@@ -30,15 +30,29 @@
 
 .grid-20-80 {
   display: grid;
-  grid-template-rows: repeat(1, 3rem);
+  grid-template-rows: 3rem auto;
+}
+.grid-20-80-columns {
+  display: grid;
+  grid-template-columns: 15rem auto;
+}
+.grid-12-10-auto {
+  display: grid;
+  grid-template-rows: 75% auto;
 }
 .min-w-15rem {
   min-width: 15rem;
 }
 
 .h-75pt {
-  height: 75%;
+  height: 60%;
 }
 .h-25pt {
   height: 25%;
+}
+.h-8pt {
+  height: 8%;
+}
+.h-92pt {
+  height: 92%;
 }

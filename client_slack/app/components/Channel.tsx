@@ -135,8 +135,8 @@ function Channel({ channel }: IProps) {
   // ---------------------------------------------------------------------------------------------
   const [rowArea, setRowArea] = useState(1)
   const [heightArea, setHeightArea] = useState({
-    body: 'h-75pt pb-2 w-full relative overflow-hidden',
-    input: 'h-25pt pt-2 relative'
+    body: 'h-75pt w-full relative overflow-hidden',
+    input: 'h-25pt relative'
   })
   function handleTextArea(e: any) {
     let lengthTextArea = e.target.value.length
@@ -164,7 +164,7 @@ function Channel({ channel }: IProps) {
   function handleFocusInput(op: string) {
     if (op === focusInput.option) {
       return {
-        cls_focus: 'flex items-center rounded p-1 bg-green-400 text-white',
+        cls_focus: 'flex items-center rounded p-1 bg-green-400 text-zinc-200',
         cls_hover: 'cursor-pointer ease-linear duration-200 p-1 hover:bg-zinc-500 rounded'
       }
     } else {
@@ -178,19 +178,19 @@ function Channel({ channel }: IProps) {
   const [showCamera, setShowCamera] = useState(false)
   // ---------------------------------------------------------------------------------------------
   return (
-    <div className='h-full w-full flex flex-col'>
+    <div className='flex flex-row h-full w-full'>
       {/* content */}
-      <div className='h-full w-full flex flex-col'>
+      <div className='flex flex-col h-full w-full'>
         {/* header thread */}
-        <div className='h-12 flex items-center border-b-2 border-zinc-700'>
-          <div className='flex items-center justify-between w-full p-2'>
-            <div className='flex items-center gap-2 text-white font-semibold'>
+        <div className='h-12 flex items-center p-4 border-b-2 border-zinc-700'>
+          <div className='flex items-center justify-between w-full'>
+            <div className='flex items-center gap-2 text-zinc-200 font-semibold'>
               <Dropdown inline label={channel.name}>
                 <Dropdown.Item>View profile</Dropdown.Item>
                 <Dropdown.Item>Start a conversation</Dropdown.Item>
               </Dropdown>
             </div>
-            <div className='flex items-center text-white gap-2 hover:bg-slate-600 ease-linear duration-150 p-1 rounded cursor-pointer'>
+            <div className='flex items-center text-zinc-200 gap-2 hover:bg-slate-600 ease-linear duration-150 p-1 rounded cursor-pointer'>
               <div className='relative inline-flex'>
                 <Image className='rounded bg-white' src='/images.png' alt='logo' width={30} height={30} />
                 <div className='absolute h-3 w-3 -bottom-[1px] -right-1 bg-green-500 rounded-full'></div>
@@ -201,146 +201,143 @@ function Channel({ channel }: IProps) {
         </div>
         {/* bookmark */}
         <div className='h-10 flex items-center text-gray-500 font-medium text-sm border-b-2 border-zinc-700'>
-          <div className='flex items-center ml-2 gap-1'>
-            <div className='flex gap-1 items-center text-slate-400 cursor-pointer'>
+          <div className='flex items-center p-4'>
+            <div className='flex gap-1 items-center text-zinc-400 cursor-pointer'>
               <FaPlus />
               <span className='text-sm'>Add bookmark</span>
             </div>
           </div>
         </div>
         {/* content */}
-        <div className='h-full w-full flex flex-row items-start'>
-          <div className='h-full w-full'>
-            {/* body */}
-            <div className={heightArea.body}>
-              <div className='h-full pl-2 overflow-auto text-slate-300'>
-                <h1 className='text-2xl text-white'># proj-datn</h1>
-                <h5 className='text-white'>
-                  @KUGA created this channel on June 30th. This is the very beginning of the proj-datn channel.
-                </h5>
-                <div className='flex items-center gap-4 text-white text-base'>
-                  <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
-                    <FaPencil className='text-sm' />
-                    <span>Add description</span>
-                  </div>
-                  <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
-                    <IoPersonAdd className='text-sm' />
-                    <span>Add people</span>
-                  </div>
+        <div className='w-full h-full grid-12-10-auto'>
+          {/* message */}
+          <div className='relative h-full w-full  overflow-auto'>
+            <div className='h-full p-4 flex flex-col items-start absolute w-full'>
+              <h1 className='text-2xl text-white'># proj-datn</h1>
+              <h5 className='text-white'>
+                @KUGA created this channel on June 30th. This is the very beginning of the proj-datn channel.
+              </h5>
+              <div className='flex items-center gap-4 text-white text-base'>
+                <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
+                  <FaPencil className='text-sm' />
+                  <span>Add description</span>
                 </div>
-                <div className='h-1 w-full border-b-2 border-slate-700 mt-2 mb-2'></div>
-                <div className='w-full'>
-                  {arrMessage.map((item, indexMessage) => (
-                    <Message key={item.id} item={item} indexMessage={indexMessage} onShowThread={handleShowThread} />
-                  ))}
+                <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
+                  <IoPersonAdd className='text-sm' />
+                  <span>Add people</span>
                 </div>
               </div>
+              <div className='h-1 w-full border-b-2 border-slate-700 mt-2 mb-2'></div>
+              <div className='w-full'>
+                {arrMessage.map((item, indexMessage) => (
+                  <Message key={item.id} item={item} indexMessage={indexMessage} onShowThread={handleShowThread} />
+                ))}
+              </div>
             </div>
-            {/* input chat */}
-            <div className={heightArea.input}>
-              <div className='h-full p-4 flex items-center absolute bottom-1 w-full border-t-2 border-zinc-700'>
-                <div className='h-full w-full grid grid-flow-row p-4 m-2 bg-zinc-800 rounded-lg ring-1 ring-zinc-500'>
-                  <div className='flex items-center gap-2 text-zinc-400'>
+          </div>
+          {/* input message */}
+          <div className='relative mt-2'>
+            <div className='h-full p-4 flex items-center absolute bottom-1 w-full border-t-2 border-zinc-700'>
+              <div className='h-full w-full grid grid-flow-row p-4 m-2 bg-zinc-800 rounded-lg ring-1 ring-zinc-500'>
+                <div className='flex items-center gap-2 text-zinc-400'>
+                  <div className={class_hover_iconInputChat}>
+                    <FaB />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <FaItalic />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <AiOutlineUnderline />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <AiOutlineLink />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <AiOutlineOrderedList />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <AiOutlineBars />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <FaCode />
+                  </div>
+                  <div className={class_hover_iconInputChat}>
+                    <AiOutlineCode />
+                  </div>
+                </div>
+                <textarea
+                  onFocus={(e) => {
+                    setFocusInput({ option: 'message' })
+                    // vị tri con trỏ
+                  }}
+                  onChange={(e) => {
+                    handleTextArea(e)
+                    setText(e.target.value)
+                  }}
+                  value={text}
+                  rows={rowArea}
+                  className='p-1 bg-zinc-800 border-none placeholder:text-zinc-500 focus:ring-0 text-white'
+                  placeholder='Write a message...'
+                />
+
+                <div className='flex items-center justify-between relative text-zinc-400'>
+                  <div className='flex items-center gap-2'>
                     <div className={class_hover_iconInputChat}>
-                      <FaB />
+                      <div className='rounded-full bg-zinc-700 p-[1px]'>
+                        <RiAddLine />
+                      </div>
+                    </div>
+                    {!showEmoji && (
+                      <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
+                        <FaRegFaceSmile />
+                      </div>
+                    )}
+                    {showEmoji && (
+                      <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
+                        <FaFaceSmileBeam className='text-yellow-300 rotate-45' />
+                      </div>
+                    )}
+                    <div className={class_hover_iconInputChat}>
+                      <FaAt />
+                    </div>
+                    <div className='border-r-2 h-4'></div>
+                    <div onClick={() => setShowCamera(true)} className={class_hover_iconInputChat}>
+                      <BiVideo />
                     </div>
                     <div className={class_hover_iconInputChat}>
-                      <FaItalic />
+                      <BiMicrophone />
                     </div>
-                    <div className={class_hover_iconInputChat}>
-                      <AiOutlineUnderline />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <AiOutlineLink />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <AiOutlineOrderedList />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <AiOutlineBars />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <FaCode />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <AiOutlineCode />
+                    <div ref={emojiRef} className='relative inline-flex items-center justify-center'>
+                      {showEmoji && (
+                        <div className='absolute bottom-5 m-4 p-4'>
+                          <Picker
+                            theme='dark'
+                            emojiSize={20}
+                            emojiButtonSize={28}
+                            onEmojiSelect={AddEmoji}
+                            data={data}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <textarea
-                    onFocus={(e) => {
-                      setFocusInput({ option: 'message' })
-                      // vị tri con trỏ
-                    }}
-                    onChange={(e) => {
-                      handleTextArea(e)
-                      setText(e.target.value)
-                    }}
-                    value={text}
-                    rows={rowArea}
-                    className='p-1 bg-zinc-800 border-none placeholder:text-zinc-500 focus:ring-0 text-white'
-                    placeholder='Write a message...'
-                  />
-
-                  <div className='flex items-center justify-between relative text-zinc-400'>
-                    <div className='flex items-center gap-2'>
-                      <div className={class_hover_iconInputChat}>
-                        <div className='rounded-full bg-zinc-700 p-[1px]'>
-                          <RiAddLine />
-                        </div>
-                      </div>
-                      {!showEmoji && (
-                        <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
-                          <FaRegFaceSmile />
-                        </div>
-                      )}
-                      {showEmoji && (
-                        <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
-                          <FaFaceSmileBeam className='text-yellow-300 rotate-45' />
-                        </div>
-                      )}
-                      <div className={class_hover_iconInputChat}>
-                        <FaAt />
-                      </div>
-                      <div className='border-r-2 h-4'></div>
-                      <div onClick={() => setShowCamera(true)} className={class_hover_iconInputChat}>
-                        <BiVideo />
-                      </div>
-                      <div className={class_hover_iconInputChat}>
-                        <BiMicrophone />
-                      </div>
-                      <div ref={emojiRef} className='relative inline-flex items-center justify-center'>
-                        {showEmoji && (
-                          <div className='absolute bottom-5 m-4 p-4'>
-                            <Picker
-                              theme='dark'
-                              emojiSize={20}
-                              emojiButtonSize={28}
-                              onEmojiSelect={AddEmoji}
-                              data={data}
-                            />
-                          </div>
-                        )}
-                      </div>
+                  <div className={handleFocusInput('message').cls_focus}>
+                    <div className={handleFocusInput('message').cls_hover}>
+                      <FaPaperPlane className='' />
                     </div>
-                    <div className={handleFocusInput('message').cls_focus}>
-                      <div className={handleFocusInput('message').cls_hover}>
-                        <FaPaperPlane className='' />
-                      </div>
-                      <div className='h-4 border-r-[1px] border-zinc-700 mr-1 ml-1'></div>
-                      <div className={handleFocusInput('message').cls_hover}>
-                        <FaAngleDown className='' />
-                      </div>
+                    <div className='h-4 border-r-[1px] border-zinc-700 mr-1 ml-1'></div>
+                    <div className={handleFocusInput('message').cls_hover}>
+                      <FaAngleDown className='' />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {showThread.status && (
-            <Thread onShowThread={handleShowThread} idMessageReplies={showThread.idMessageReplies} />
-          )}
         </div>
       </div>
+      {/* thread */}
+      {showThread.status && <Thread onShowThread={handleShowThread} idMessageReplies={showThread.idMessageReplies} />}
     </div>
   )
 }

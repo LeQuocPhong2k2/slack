@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className='bg-fuchsia-800' suppressHydrationWarning={true}>
+      <body className='' suppressHydrationWarning={true}>
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

@@ -38,12 +38,12 @@ const Message = ({ item, onShowThread }: any) => {
         width={40}
         height={40}
       />
-      <div className='font-medium text-white w-full'>
+      <div className='font-medium w-full'>
         <div className='relative inline-flex items-center'>
-          <div className='relative inline-flex mr-1'>
+          <div className='relative inline-flex mr-1 text-zinc-200'>
             <span className=''>{arruser.find((e) => e.id == item.userid)?.name}</span>
           </div>
-          <span className='text-xs text-slate-400'>{item.times}</span>
+          <span className='text-xs text-zinc-400'>{item.times}</span>
         </div>
         {/* message wrapper */}
         <div className='text-sm text-gray-500 dark:text-gray-400'>
@@ -64,23 +64,23 @@ const Message = ({ item, onShowThread }: any) => {
                 options: ''
               })
             }}
-            className='relative flex justify-start items-center cursor-pointer hover:bg-slate-600 ease-out duration-200'
+            className='relative flex justify-start items-center cursor-pointer hover:bg-zinc-900 ease-out duration-200'
           >
             <div className='relative inline-flex items-center'>
-              <span className='text-slate-400 pt-1 pb-1'>{item.content}</span>
+              <span className='text-zinc-400 pt-1 pb-1'>{item.content}</span>
             </div>
             <div className={handleHoverShowToolMessage(item.id, 'message')}>
-              <div className='cursor-pointer hover:bg-slate-600 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-green-400'>
+              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-green-400'>
                 <FaSquareCheck />
               </div>
-              <div className='cursor-pointer hover:bg-slate-600 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-50'>
+              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-50'>
                 <FaRegEye />
               </div>
-              <div className='cursor-pointer hover:bg-slate-600 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-200'>
+              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-200'>
                 {' '}
                 <FaHandsBubbles />
               </div>
-              <div className='cursor-pointer hover:bg-slate-600 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'>
+              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'>
                 <FaRegFaceSmile />
                 <span>React</span>
               </div>
@@ -88,7 +88,7 @@ const Message = ({ item, onShowThread }: any) => {
                 onClick={() => {
                   onShowThread(true, item.id)
                 }}
-                className='cursor-pointer hover:bg-slate-600 rounded-t-md active:bg-slate-400 p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'
+                className='cursor-pointer hover:bg-zinc-900 rounded-t-md active:bg-slate-400 p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'
               >
                 <FaRegMessage />
                 <span>Reply</span>
@@ -111,7 +111,7 @@ const Message = ({ item, onShowThread }: any) => {
                 ))}
                 {item.comment.length > 2 ? (
                   <a
-                    className='flex items-center justify-center w-6 h-6 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800'
+                    className='flex items-center justify-center w-6 h-6 text-xs font-medium text-zinc-100 bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800'
                     href='#'
                   >
                     {item.comment.length - 2 > 0 ? `+${item.comment.length - 2}` : ''}

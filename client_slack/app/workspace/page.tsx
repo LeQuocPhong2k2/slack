@@ -9,11 +9,13 @@ import { AiOutlineBars, AiOutlineCode, AiOutlineLink, AiOutlineOrderedList, AiOu
 import {
   FaAngleDown,
   FaAngleLeft,
+  FaAngleRight,
   FaAnglesLeft,
   FaAnglesRight,
   FaAt,
   FaB,
   FaCaretDown,
+  FaCaretLeft,
   FaCaretRight,
   FaChevronDown,
   FaCircle,
@@ -52,7 +54,6 @@ import { useGetChannelByIdQuery } from '@/redux/api/chanelAPI'
 import { RiBarChartGroupedFill } from 'react-icons/ri'
 import { HiUserGroup } from 'react-icons/hi2'
 import { BiMessageSquareDetail } from 'react-icons/bi'
-import SlideBar from '../components/SlideBar'
 let arruser = [
   {
     id: 1,
@@ -141,7 +142,21 @@ let socket: any
 
 function App() {
   // -------------------------------------------------------------------
-  const [collapseSlideBar, setCollapseSlideBar] = useState(true)
+  const [showAbsoluteWorkSpace, setShowAbsoluteWorkSpace] = useState(false)
+  const [showMenuWorkspace, setShowMenuWorkspace] = useState(false)
+  let workspaceRef = useRef<any>()
+  console.log(workspaceRef)
+  useEffect(() => {
+    let handle = (e: any) => {
+      if (workspaceRef.current && !workspaceRef.current.contains(e.target)) {
+        setShowMenuWorkspace(false)
+      }
+    }
+    document.addEventListener('mousedown', handle)
+    return () => {
+      document.removeEventListener('mousedown', handle)
+    }
+  })
   // ------------------------------ State ------------------------------
   const [showMenuChannel, setShowMenuChannel] = useState(false)
   const [showDirectMessage, setShowDirectMessage] = useState(false)
@@ -161,7 +176,7 @@ function App() {
   let arrChannel = useSelector(getChannelList)
 
   return (
-    <main className='min-h-screen grid-20-80 w-full bg-white'>
+    <main className='min-h-screen w-full grid-20-80 bg-blue-600'>
       {/* top */}
       <div className='flex items-center justify-between bg-fuchsia-900 p-2'>
         <div className='flex items-center bg-slate-300 p-1 rounded-md'>
@@ -178,171 +193,194 @@ function App() {
         </div>
       </div>
       {/* bottom */}
-      <div className='flex items-center relative justify-start bg-zinc-900'>
-        {/* collapse */}
-        {!collapseSlideBar && (
-          <SlideBar
-            activeItemSlideBar={activeItemSlideBar}
-            setActiveItemSlideBar={setActiveItemSlideBar}
-            collapseSlideBar={collapseSlideBar}
-            setCollapseSlideBar={setCollapseSlideBar}
-          />
-        )}
+      <div className='min-h-full w-full grid-20-80-columns bg-zinc-950'>
         {/* left */}
-        {collapseSlideBar && (
-          <div className='min-h-full min-w-15rem relative flex flex-col border-r-2 border-zinc-700 overflow-hidden'>
-            {/* collapse */}
-            <div className='absolute z-10 -right-2 top-2/4 flex items-center justify-center h-5 w-5'>
+        <div className='min-h-full min-w-15rem relative flex flex-col border-r-2 border-zinc-700 text-zinc-400 font-medium'>
+          <div className='h-12 border-b-2 border-zinc-700 font-medium'>
+            <div className='flex items-center justify-between p-2'>
               <div
-                onClick={() => {
-                  setCollapseSlideBar(!collapseSlideBar)
-                }}
-                className='flex relative cursor-pointer rounded-full text-slate-200 bg-zinc-500 p-2 opacity-80 active:bg-zinc-600 hover:bg-zinc-600'
+                ref={workspaceRef}
+                onClick={() => setShowMenuWorkspace(!showMenuWorkspace)}
+                className='cursor-pointer flex items-center justify-center gap-1 p-1 rounded-md hover:bg-zinc-900'
               >
-                <div className='h-5 w-5'></div>
-                <div className='absolute flex items-center w-5 h-5 right-2'>
-                  <FaAnglesLeft />
-                </div>
+                <h1>datn</h1>
+                <FaAngleDown />
               </div>
-            </div>
-            {/* collapse */}
-            <div className='h-12 border-b-2 border-zinc-700 text-white font-semibold'>
-              <div className='flex items-center justify-between p-2'>
-                <Dropdown inline label='datn'>
-                  <Dropdown.Header>
-                    <span className='block text-sm font-bold'>Bonnie success</span>
-                    <span className='block truncate text-sm font-medium'>name@flowbite.com</span>
-                  </Dropdown.Header>
-                  <Dropdown.Item>Features</Dropdown.Item>
-                  <Dropdown.Item>Settings</Dropdown.Item>
-                  <Dropdown.Item>Earnings</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item>Sign out</Dropdown.Item>
-                </Dropdown>
-                <div className='bg-white p-2 rounded-full'>
-                  <FaPenToSquare className='text-black' />
-                </div>
+              <div className='bg-white p-2 rounded-full'>
+                <FaPenToSquare className='text-black' />
               </div>
-            </div>
-            <div className='h-50 border-b-2 border-zinc-700'>
-              <ul className='font-semibold cursor-pointer text-gray-500 list-inside dark:text-gray-400'>
-                {arrItemSidebar.map((item, index) => (
-                  <li
-                    onClick={() => setActiveItemSlideBar(item.title)}
-                    key={item.id}
-                    className='relative flex items-center gap-2 hover:bg-slate-700 ease-out duration-100 rounded-lg p-1 m-2'
-                    style={activeItemSlideBar === item.title ? { backgroundColor: '#4B5563', color: 'white' } : {}}
+              {/* absolute workspace */}
+              {showMenuWorkspace && (
+                <div className='z-50 w-60 absolute flex flex-col items-start top-9 -right-4 rounded-md ring-1 ring-zinc-600 bg-zinc-800 shadow-md text-slate-300'>
+                  <div className='grid grid-cols-3 grid-rows-1 items-center p-2 '>
+                    <Image className='rounded' src='/avata.png' width={45} height={40} alt='add' />
+                    <div className='col-span-2 flex flex-col'>
+                      <h1>datn</h1>
+                      <span>datn-co.slack.com</span>
+                    </div>
+                  </div>
+                  <div className='flex w-full  border-t-2 border-zinc-600'>
+                    <ul className='w-full '>
+                      <li className='w-full p-2 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                        <span>Invite people to datn</span>
+                      </li>
+                      <li className='w-full p-2 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                        <span>Create a channel</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className='flex w-full border-t-2 border-zinc-600'>
+                    <ul className='w-full'>
+                      <li className='w-full p-2 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                        <span>Sign out of datn</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    onMouseLeave={() => setShowAbsoluteWorkSpace(false)}
+                    onMouseOver={() => setShowAbsoluteWorkSpace(true)}
+                    className='flex w-full border-t-2 border-zinc-600'
                   >
-                    {item.icon}
-                    {item.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className='h-96 relative overflow-hidden'>
-              <ul className='h-full overflow-auto text-gray-500 list-inside dark:text-gray-400'>
-                <li className='flex items-center gap-1 rounded-lg p-1'>
-                  <div className='p-1 hover:bg-slate-700 ease-out duration-300 rounded'>
-                    {showMenuChannel ? (
-                      <FaCaretDown onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
-                    ) : (
-                      <FaCaretRight onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
+                    <div className='w-full p-2 flex items-center justify-between hover:bg-sky-600 hover:text-white cursor-pointer'>
+                      <span>Add workspaces</span>
+                      <FaAngleRight />
+                    </div>
+                    {/* absolute */}
+                    {showAbsoluteWorkSpace && (
+                      <div className='absolute -right-[13.5rem] ring-1 ring-zinc-600 cursor-pointer rounded-md flex items-center shadow-md bg-zinc-800'>
+                        <ul className='flex flex-col gap-2 mt-2'>
+                          <li className='w-full p-1 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                            Sign in to another workspace
+                          </li>
+                          <li className='w-full p-1 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                            Create a new workspace
+                          </li>
+                          <li className='w-full p-1 hover:bg-sky-600 hover:text-white cursor-pointer'>
+                            Find workspaces
+                          </li>
+                        </ul>
+                      </div>
                     )}
                   </div>
-                  <div className='font-semibold flex items-center gap-1 cursor-pointer hover:bg-slate-700 ease-out duration-100 rounded'>
-                    <Dropdown inline label='Channels'>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className='h-50 border-b-2 border-zinc-700'>
+            <ul className='cursor-pointer text-zinc-400 font-medium list-inside dark:text-gray-400'>
+              {arrItemSidebar.map((item, index) => (
+                <li
+                  onClick={() => setActiveItemSlideBar(item.title)}
+                  key={item.id}
+                  className='relative flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg p-1 m-2'
+                  style={activeItemSlideBar === item.title ? { backgroundColor: 'rgb(39 39 42)', color: 'white' } : {}}
+                >
+                  {item.icon}
+                  {item.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='h-96 relative overflow-hidden'>
+            <ul className='h-full overflow-auto text-zinc-400 font-medium list-inside dark:text-gray-400'>
+              <li className='flex items-center gap-1 rounded-lg p-1'>
+                <div className='p-1 hover:bg-zinc-900 ease-out duration-300 rounded'>
+                  {showMenuChannel ? (
+                    <FaCaretDown onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
+                  ) : (
+                    <FaCaretRight onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
+                  )}
+                </div>
+                <div className='font-medium flex items-center gap-1 cursor-pointer hover:bg-zinc-900 ease-out duration-100 rounded'>
+                  <Dropdown inline label='Channels'>
+                    <Dropdown.Item>Create</Dropdown.Item>
+                    <Dropdown.Item>Manage</Dropdown.Item>
+                  </Dropdown>
+                </div>
+              </li>
+              {showMenuChannel && (
+                <ul className='flex flex-col gap-2'>
+                  {arrChannel.map((item: IChannel, index: number) => (
+                    <li
+                      style={
+                        activeItemSlideBar === item.name ? { backgroundColor: 'rgb(39 39 42)', color: 'white' } : {}
+                      }
+                      onClick={() => {
+                        setActiveItemSlideBar(item.name)
+                        setItemChannels(item)
+                      }}
+                      key={index}
+                      className='cursor-pointer flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg p-1 mr-2 ml-2'
+                    >
+                      <span className='font-bold text-xl italic ml-1'>#</span>
+                      {item.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <li className='flex items-center gap-1 rounded-lg p-1'>
+                <div className='p-1 hover:bg-zinc-900 ease-out duration-300 rounded'>
+                  {showDirectMessage ? (
+                    <FaCaretDown onClick={() => setShowDirectMessage(!showDirectMessage)} className='cursor-pointer' />
+                  ) : (
+                    <FaCaretRight onClick={() => setShowDirectMessage(!showDirectMessage)} className='cursor-pointer' />
+                  )}
+                </div>
+                <div className='font-medium flex items-center gap-14 cursor-pointer'>
+                  <div className='hover:bg-zinc-900 ease-out duration-100 rounded'>
+                    <Dropdown inline label='Direct messages'>
                       <Dropdown.Item>Create</Dropdown.Item>
                       <Dropdown.Item>Manage</Dropdown.Item>
                     </Dropdown>
                   </div>
-                </li>
-                {showMenuChannel && (
-                  <ul className='flex flex-col gap-2'>
-                    {arrChannel.map((item: IChannel, index: number) => (
-                      <li
-                        style={activeItemSlideBar === item.name ? { backgroundColor: '#4B5563', color: 'white' } : {}}
-                        onClick={() => {
-                          setActiveItemSlideBar(item.name)
-                          setItemChannels(item)
-                        }}
-                        key={index}
-                        className='cursor-pointer flex items-center gap-2 hover:bg-slate-700 ease-out duration-100 rounded-lg p-1 mr-2 ml-2'
-                      >
-                        <span className='font-bold text-xl italic ml-1'>#</span>
-                        {item.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <li className='flex items-center gap-1 rounded-lg p-1'>
-                  <div className='p-1 hover:bg-slate-700 ease-out duration-300 rounded'>
-                    {showDirectMessage ? (
-                      <FaCaretDown
-                        onClick={() => setShowDirectMessage(!showDirectMessage)}
-                        className='cursor-pointer'
-                      />
-                    ) : (
-                      <FaCaretRight
-                        onClick={() => setShowDirectMessage(!showDirectMessage)}
-                        className='cursor-pointer'
-                      />
-                    )}
-                  </div>
-                  <div className='font-semibold flex items-center gap-14 cursor-pointer'>
-                    <div className='hover:bg-slate-700 ease-out duration-100 rounded'>
-                      <Dropdown inline label='Direct messages'>
-                        <Dropdown.Item>Create</Dropdown.Item>
-                        <Dropdown.Item>Manage</Dropdown.Item>
-                      </Dropdown>
-                    </div>
-                  </div>
-                </li>
-                {showDirectMessage && (
-                  <ul className=''>
-                    {arrChannel.map((item: IChannel, index: number) =>
-                      item.users.map(
-                        (user: IUser, index: number) => (
-                          console.log(item.users.length),
-                          (
-                            <li
-                              style={
-                                activeItemSlideBar === user.name ? { backgroundColor: '#4B5563', color: 'white' } : {}
-                              }
-                              onClick={() => {
-                                setActiveItemSlideBar(user.name)
-                                setItemChannels(item)
-                              }}
-                              key={index}
-                              className='cursor-pointer flex items-center gap-2 hover:bg-slate-700 ease-out duration-100 rounded-lg m-2 p-1'
-                            >
-                              <Image className='rounded bg-white' src='/images.jpg' alt='logo' width={20} height={20} />
-                              {user.name}
-                            </li>
-                          )
+                </div>
+              </li>
+              {showDirectMessage && (
+                <ul className=''>
+                  {arrChannel.map((item: IChannel, index: number) =>
+                    item.users.map(
+                      (user: IUser, index: number) => (
+                        console.log(item.users.length),
+                        (
+                          <li
+                            style={
+                              activeItemSlideBar === user.name
+                                ? { backgroundColor: 'rgb(39 39 42)', color: 'white' }
+                                : {}
+                            }
+                            onClick={() => {
+                              setActiveItemSlideBar(user.name)
+                              setItemChannels(item)
+                            }}
+                            key={index}
+                            className='cursor-pointer flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg m-2 p-1'
+                          >
+                            <Image className='rounded bg-white' src='/images.jpg' alt='logo' width={20} height={20} />
+                            {user.name}
+                          </li>
                         )
                       )
-                    )}
-                    <li className='flex items-center gap-2 hover:bg-slate-700 ease-out duration-100 rounded-lg m-2 p-1'>
-                      <FaRegSquarePlus />
-                      Add coworkers
-                    </li>
-                  </ul>
-                )}
-              </ul>
+                    )
+                  )}
+                  <li className='flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg m-2 p-1'>
+                    <FaRegSquarePlus />
+                    Add coworkers
+                  </li>
+                </ul>
+              )}
+            </ul>
+          </div>
+          <div className='absolute bottom-0 w-full border-t-2 border-zinc-700 pb-2 flex items-center justify-between rounded-t-xl p-2'>
+            <div className='flex items-center justify-center text-white font-medium gap-1'>
+              <span>datn</span>
+              <FaChevronDown />
             </div>
-            <div className='absolute bottom-0 w-full border-t-2 border-zinc-700 pb-2 flex items-center justify-between rounded-t-xl p-2'>
-              <div className='flex items-center justify-center text-white font-semibold gap-1'>
-                <span>datn</span>
-                <FaChevronDown />
-              </div>
-              <div className='flex items-center gap-2 text-slate-700 rounded-xl border-2 p-1 cursor-pointer'>
-                <FaCircle />
-                <FaHeadphones />
-              </div>
+            <div className='flex items-center gap-2 text-slate-700 rounded-xl border-2 p-1 cursor-pointer'>
+              <FaCircle />
+              <FaHeadphones />
             </div>
           </div>
-        )}
-
+        </div>
         {/* right */}
         {/* <div></div> */}
         {itemChannels && <Channel channel={itemChannels} />}
