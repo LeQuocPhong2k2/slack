@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(113 113 122);
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(113 113 122);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(113 113 122);
+}
+
+.bg-clarity {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.grid-20-80 {
+  display: grid;
+  grid-template-rows: repeat(1, 3rem);
+}
+.min-w-15rem {
+  min-width: 15rem;
+}
+
+.h-75pt {
+  height: 75%;
+}
+.h-25pt {
+  height: 25%;
+}
