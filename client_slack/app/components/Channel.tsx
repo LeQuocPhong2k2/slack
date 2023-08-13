@@ -338,6 +338,7 @@ function Channel({ channel }: IProps) {
       </div>
       {/* thread */}
       {showThread.status && <Thread onShowThread={handleShowThread} idMessageReplies={showThread.idMessageReplies} />}
+      <div>ok</div>
     </div>
   )
 }
