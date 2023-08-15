@@ -193,15 +193,15 @@ function App() {
         </div>
       </div>
       {/* bottom */}
-      <div className='min-h-full w-full grid-20-80-columns bg-zinc-950'>
+      <div className='min-h-full w-full grid-20-80-columns bg-zinc-900'>
         {/* left */}
-        <div className='min-h-full min-w-15rem relative flex flex-col border-r-2 border-zinc-700 text-zinc-400 font-medium'>
-          <div className='h-12 border-b-2 border-zinc-700 font-medium'>
+        <div className='min-h-full min-w-15rem relative flex flex-col border-r-2 border-zinc-700 text-zinc-400 font-normal'>
+          <div className='h-12 border-b-2 border-zinc-700'>
             <div className='flex items-center justify-between p-2'>
               <div
                 ref={workspaceRef}
                 onClick={() => setShowMenuWorkspace(!showMenuWorkspace)}
-                className='cursor-pointer flex items-center justify-center gap-1 p-1 rounded-md hover:bg-zinc-900'
+                className='cursor-pointer flex items-center justify-center gap-1 p-1 rounded-md hover:bg-zinc-800'
               >
                 <h1>datn</h1>
                 <FaAngleDown />
@@ -267,12 +267,12 @@ function App() {
             </div>
           </div>
           <div className='h-50 border-b-2 border-zinc-700'>
-            <ul className='cursor-pointer text-zinc-400 font-medium list-inside dark:text-gray-400'>
+            <ul className='cursor-pointer text-zinc-400 font-normal list-inside dark:text-gray-400'>
               {arrItemSidebar.map((item, index) => (
                 <li
                   onClick={() => setActiveItemSlideBar(item.title)}
                   key={item.id}
-                  className='relative flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg p-1 m-2'
+                  className='relative flex items-center gap-2 hover:bg-zinc-800 ease-out duration-100 rounded-lg p-1 m-2'
                   style={activeItemSlideBar === item.title ? { backgroundColor: 'rgb(39 39 42)', color: 'white' } : {}}
                 >
                   {item.icon}
@@ -282,16 +282,16 @@ function App() {
             </ul>
           </div>
           <div className='h-96 relative overflow-hidden'>
-            <ul className='h-full overflow-auto text-zinc-400 font-medium list-inside dark:text-gray-400'>
+            <ul className='h-full overflow-auto text-zinc-400 font-normal list-inside dark:text-gray-400'>
               <li className='flex items-center gap-1 rounded-lg p-1'>
-                <div className='p-1 hover:bg-zinc-900 ease-out duration-300 rounded'>
+                <div className='p-1 hover:bg-zinc-800 ease-out duration-300 rounded'>
                   {showMenuChannel ? (
                     <FaCaretDown onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
                   ) : (
                     <FaCaretRight onClick={() => setShowMenuChannel(!showMenuChannel)} className='cursor-pointer' />
                   )}
                 </div>
-                <div className='font-medium flex items-center gap-1 cursor-pointer hover:bg-zinc-900 ease-out duration-100 rounded'>
+                <div className='font-normal flex items-center gap-1 cursor-pointer hover:bg-zinc-800 ease-out duration-100 rounded'>
                   <Dropdown inline label='Channels'>
                     <Dropdown.Item>Create</Dropdown.Item>
                     <Dropdown.Item>Manage</Dropdown.Item>
@@ -310,7 +310,7 @@ function App() {
                         setItemChannels(item)
                       }}
                       key={index}
-                      className='cursor-pointer flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg p-1 mr-2 ml-2'
+                      className='cursor-pointer flex items-center gap-2 hover:bg-zinc-800 ease-out duration-100 rounded-lg p-1 mr-2 ml-2'
                     >
                       <span className='font-bold text-xl italic ml-1'>#</span>
                       {item.name}
@@ -319,15 +319,15 @@ function App() {
                 </ul>
               )}
               <li className='flex items-center gap-1 rounded-lg p-1'>
-                <div className='p-1 hover:bg-zinc-900 ease-out duration-300 rounded'>
+                <div className='p-1 hover:bg-zinc-800 ease-out duration-300 rounded'>
                   {showDirectMessage ? (
                     <FaCaretDown onClick={() => setShowDirectMessage(!showDirectMessage)} className='cursor-pointer' />
                   ) : (
                     <FaCaretRight onClick={() => setShowDirectMessage(!showDirectMessage)} className='cursor-pointer' />
                   )}
                 </div>
-                <div className='font-medium flex items-center gap-14 cursor-pointer'>
-                  <div className='hover:bg-zinc-900 ease-out duration-100 rounded'>
+                <div className='font-normal flex items-center gap-14 cursor-pointer'>
+                  <div className='hover:bg-zinc-800 ease-out duration-100 rounded'>
                     <Dropdown inline label='Direct messages'>
                       <Dropdown.Item>Create</Dropdown.Item>
                       <Dropdown.Item>Manage</Dropdown.Item>
@@ -353,7 +353,7 @@ function App() {
                               setItemChannels(item)
                             }}
                             key={index}
-                            className='cursor-pointer flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg m-2 p-1'
+                            className='cursor-pointer flex items-center gap-2 hover:bg-zinc-800 ease-out duration-100 rounded-lg m-2 p-1'
                           >
                             <Image className='rounded bg-white' src='/images.jpg' alt='logo' width={20} height={20} />
                             {user.name}
@@ -362,7 +362,7 @@ function App() {
                       )
                     )
                   )}
-                  <li className='flex items-center gap-2 hover:bg-zinc-900 ease-out duration-100 rounded-lg m-2 p-1'>
+                  <li className='flex items-center gap-2 hover:bg-zinc-800 ease-out duration-100 rounded-lg m-2 p-1'>
                     <FaRegSquarePlus />
                     Add coworkers
                   </li>
@@ -371,7 +371,7 @@ function App() {
             </ul>
           </div>
           <div className='absolute bottom-0 w-full border-t-2 border-zinc-700 pb-2 flex items-center justify-between rounded-t-xl p-2'>
-            <div className='flex items-center justify-center text-white font-medium gap-1'>
+            <div className='flex items-center justify-center text-white font-normal gap-1'>
               <span>datn</span>
               <FaChevronDown />
             </div>

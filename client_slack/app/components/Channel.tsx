@@ -178,7 +178,7 @@ function Channel({ channel }: IProps) {
   const [showCamera, setShowCamera] = useState(false)
   // ---------------------------------------------------------------------------------------------
   return (
-    <div className='flex flex-row h-full w-full'>
+    <div className='flex flex-row h-full w-full bg-zinc-900 opacity-90'>
       {/* content */}
       <div className='flex flex-col h-full w-full'>
         {/* header thread */}
@@ -200,9 +200,9 @@ function Channel({ channel }: IProps) {
           </div>
         </div>
         {/* bookmark */}
-        <div className='h-10 flex items-center text-gray-500 font-medium text-sm border-b-2 border-zinc-700'>
+        <div className='h-10 flex items-center text-zinc-400 font-medium text-sm border-b-2 border-zinc-700'>
           <div className='flex items-center p-4'>
-            <div className='flex gap-1 items-center text-zinc-400 cursor-pointer'>
+            <div className='flex gap-1 items-center cursor-pointer'>
               <FaPlus />
               <span className='text-sm'>Add bookmark</span>
             </div>
@@ -218,16 +218,16 @@ function Channel({ channel }: IProps) {
                 @KUGA created this channel on June 30th. This is the very beginning of the proj-datn channel.
               </h5>
               <div className='flex items-center gap-4 text-white text-base'>
-                <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
+                <div className='flex items-center gap-1 ring-1 border-zinc-700 rounded-md pl-1 pr-1 cursor-pointer'>
                   <FaPencil className='text-sm' />
                   <span>Add description</span>
                 </div>
-                <div className='flex items-center gap-1 ring-1 ring-slate-600 rounded-md pl-1 pr-1 cursor-pointer'>
+                <div className='flex items-center gap-1 ring-1 border-zinc-700 rounded-md pl-1 pr-1 cursor-pointer'>
                   <IoPersonAdd className='text-sm' />
                   <span>Add people</span>
                 </div>
               </div>
-              <div className='h-1 w-full border-b-2 border-slate-700 mt-2 mb-2'></div>
+              <div className='h-1 w-full border-b-2 border-zinc-700 mt-2 mb-2'></div>
               <div className='w-full'>
                 {arrMessage.map((item, indexMessage) => (
                   <Message key={item.id} item={item} indexMessage={indexMessage} onShowThread={handleShowThread} />
@@ -236,99 +236,86 @@ function Channel({ channel }: IProps) {
             </div>
           </div>
           {/* input message */}
-          <div className='relative mt-2'>
-            <div className='h-full p-4 flex items-center absolute bottom-1 w-full border-t-2 border-zinc-700'>
-              <div className='h-full w-full grid grid-flow-row p-4 m-2 bg-zinc-800 rounded-lg ring-1 ring-zinc-500'>
-                <div className='flex items-center gap-2 text-zinc-400'>
+          <div className='relative h-full w-full flex items-center p-4 text-zinc-400'>
+            <div className='flex flex-col items-start justify-around w-full h-full rounded-md ring-1 ring-zinc-600 bg-zinc-900'>
+              <div className='w-full flex flex-row items-center justify-start p-1 gap-2'>
+                <div className={class_hover_iconInputChat}>
+                  <FaB />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <FaItalic />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <AiOutlineUnderline />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <AiOutlineLink />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <AiOutlineOrderedList />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <AiOutlineBars />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <FaCode />
+                </div>
+                <div className={class_hover_iconInputChat}>
+                  <AiOutlineCode />
+                </div>
+              </div>
+              {/* text are */}
+              <div className='w-full flex items-center justify-between p-2'>
+                <textarea
+                  className='p-0 w-full bg-zinc-900 border-none placeholder:text-zinc-400 focus:ring-0'
+                  rows={1}
+                  placeholder='Message #proj-datn'
+                ></textarea>
+              </div>
+              {/* button bottom */}
+              <div className='w-full flex items-center justify-between p-1 gap-2'>
+                <div className='flex items-center gap-2'>
                   <div className={class_hover_iconInputChat}>
-                    <FaB />
+                    <div className='rounded-full bg-zinc-700 p-[1px]'>
+                      <RiAddLine />
+                    </div>
+                  </div>
+                  {!showEmoji && (
+                    <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
+                      <FaRegFaceSmile />
+                    </div>
+                  )}
+                  {showEmoji && (
+                    <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
+                      <FaFaceSmileBeam className='text-yellow-300 rotate-45' />
+                    </div>
+                  )}
+                  <div className={class_hover_iconInputChat}>
+                    <FaAt />
+                  </div>
+                  <div className='border-r-2 h-4'></div>
+                  <div onClick={() => setShowCamera(true)} className={class_hover_iconInputChat}>
+                    <BiVideo />
                   </div>
                   <div className={class_hover_iconInputChat}>
-                    <FaItalic />
+                    <BiMicrophone />
                   </div>
-                  <div className={class_hover_iconInputChat}>
-                    <AiOutlineUnderline />
-                  </div>
-                  <div className={class_hover_iconInputChat}>
-                    <AiOutlineLink />
-                  </div>
-                  <div className={class_hover_iconInputChat}>
-                    <AiOutlineOrderedList />
-                  </div>
-                  <div className={class_hover_iconInputChat}>
-                    <AiOutlineBars />
-                  </div>
-                  <div className={class_hover_iconInputChat}>
-                    <FaCode />
-                  </div>
-                  <div className={class_hover_iconInputChat}>
-                    <AiOutlineCode />
+                  <div ref={emojiRef} className='relative inline-flex items-center justify-center'>
+                    {showEmoji && (
+                      <div className='absolute bottom-5 m-4 p-4'>
+                        <Picker theme='dark' emojiSize={20} emojiButtonSize={28} onEmojiSelect={AddEmoji} data={data} />
+                      </div>
+                    )}
                   </div>
                 </div>
-                <textarea
-                  onFocus={(e) => {
-                    setFocusInput({ option: 'message' })
-                    // vị tri con trỏ
-                  }}
-                  onChange={(e) => {
-                    handleTextArea(e)
-                    setText(e.target.value)
-                  }}
-                  value={text}
-                  rows={rowArea}
-                  className='p-1 bg-zinc-800 border-none placeholder:text-zinc-500 focus:ring-0 text-white'
-                  placeholder='Write a message...'
-                />
-
-                <div className='flex items-center justify-between relative text-zinc-400'>
-                  <div className='flex items-center gap-2'>
-                    <div className={class_hover_iconInputChat}>
-                      <div className='rounded-full bg-zinc-700 p-[1px]'>
-                        <RiAddLine />
-                      </div>
-                    </div>
-                    {!showEmoji && (
-                      <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
-                        <FaRegFaceSmile />
-                      </div>
-                    )}
-                    {showEmoji && (
-                      <div className={class_hover_iconInputChat} onClick={() => setShowEmoji(!showEmoji)}>
-                        <FaFaceSmileBeam className='text-yellow-300 rotate-45' />
-                      </div>
-                    )}
-                    <div className={class_hover_iconInputChat}>
-                      <FaAt />
-                    </div>
-                    <div className='border-r-2 h-4'></div>
-                    <div onClick={() => setShowCamera(true)} className={class_hover_iconInputChat}>
-                      <BiVideo />
-                    </div>
-                    <div className={class_hover_iconInputChat}>
-                      <BiMicrophone />
-                    </div>
-                    <div ref={emojiRef} className='relative inline-flex items-center justify-center'>
-                      {showEmoji && (
-                        <div className='absolute bottom-5 m-4 p-4'>
-                          <Picker
-                            theme='dark'
-                            emojiSize={20}
-                            emojiButtonSize={28}
-                            onEmojiSelect={AddEmoji}
-                            data={data}
-                          />
-                        </div>
-                      )}
-                    </div>
+                {/* button send */}
+                <div className='flex items-center'>
+                  <div className={handleFocusInput('message').cls_hover}>
+                    <FaPaperPlane className='' />
                   </div>
-                  <div className={handleFocusInput('message').cls_focus}>
-                    <div className={handleFocusInput('message').cls_hover}>
-                      <FaPaperPlane className='' />
-                    </div>
-                    <div className='h-4 border-r-[1px] border-zinc-700 mr-1 ml-1'></div>
-                    <div className={handleFocusInput('message').cls_hover}>
-                      <FaAngleDown className='' />
-                    </div>
+                  <div className='h-4 border-r-[1px] border-zinc-700 mr-1 ml-1'></div>
+                  <div className={handleFocusInput('message').cls_hover}>
+                    <FaAngleDown className='' />
                   </div>
                 </div>
               </div>
@@ -338,7 +325,6 @@ function Channel({ channel }: IProps) {
       </div>
       {/* thread */}
       {showThread.status && <Thread onShowThread={handleShowThread} idMessageReplies={showThread.idMessageReplies} />}
-      <div>ok</div>
     </div>
   )
 }

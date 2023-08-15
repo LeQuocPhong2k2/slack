@@ -46,7 +46,7 @@ const Message = ({ item, onShowThread }: any) => {
           <span className='text-xs text-zinc-400'>{item.times}</span>
         </div>
         {/* message wrapper */}
-        <div className='text-sm text-gray-500 dark:text-gray-400'>
+        <div className='text-sm text-zinc-400 dark:text-gray-400'>
           {/* message */}
           <div
             key={item.id}
@@ -64,23 +64,23 @@ const Message = ({ item, onShowThread }: any) => {
                 options: ''
               })
             }}
-            className='relative flex justify-start items-center cursor-pointer hover:bg-zinc-900 ease-out duration-200'
+            className='relative flex justify-start items-center cursor-pointer hover:bg-zinc-800 ease-out duration-200'
           >
             <div className='relative inline-flex items-center'>
               <span className='text-zinc-400 pt-1 pb-1'>{item.content}</span>
             </div>
             <div className={handleHoverShowToolMessage(item.id, 'message')}>
-              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-green-400'>
+              <div className='cursor-pointer hover:bg-zinc-800 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-green-400'>
                 <FaSquareCheck />
               </div>
-              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-50'>
+              <div className='cursor-pointer hover:bg-zinc-800 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-50'>
                 <FaRegEye />
               </div>
-              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-200'>
+              <div className='cursor-pointer hover:bg-zinc-800 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-yellow-200'>
                 {' '}
                 <FaHandsBubbles />
               </div>
-              <div className='cursor-pointer hover:bg-zinc-900 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'>
+              <div className='cursor-pointer hover:bg-zinc-800 active:bg-slate-400 rounded-t-md p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'>
                 <FaRegFaceSmile />
                 <span>React</span>
               </div>
@@ -88,7 +88,7 @@ const Message = ({ item, onShowThread }: any) => {
                 onClick={() => {
                   onShowThread(true, item.id)
                 }}
-                className='cursor-pointer hover:bg-zinc-900 rounded-t-md active:bg-slate-400 p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'
+                className='cursor-pointer hover:bg-zinc-800 rounded-t-md active:bg-slate-400 p-1 flex gap-1 justify-center items-center text-xs text-yellow-50'
               >
                 <FaRegMessage />
                 <span>Reply</span>
